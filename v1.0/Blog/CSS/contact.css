@@ -1,0 +1,165 @@
+
+#header{
+    text-shadow:1px 2px 2px rgba( 0, 0, 0, .3 );
+}
+#header:after{
+    margin-top:20px;
+}
+
+#header h1{
+    line-height: 50px;
+    font-size: 24px;
+    letter-spacing: 3px;
+    margin-left:60px;
+}
+
+#header h2{
+    line-height: 40px;
+    font-size: 48px;
+    margin-left:20px;
+    font-family: Tahoma;
+}
+
+#main{
+    padding-top:20px;
+}
+
+#contact-info{
+    width:40%;
+    float: left;
+}
+
+.small-w-scren #contact-info{
+    width: 100%;
+    float: none;
+    margin-bottom:30px;
+}
+
+#contact-info>div.warp{
+    padding: 0 20px;
+}
+
+
+#contact-info>div.warp:after{
+    margin-top:20px;
+}
+
+#contact-info p{
+    line-height: 24px;
+    color:rgba( 255, 255, 255, .7 );
+}
+
+#contact-info hr{
+    margin-top:20px;
+}
+
+#contact-info table{
+    margin-top:10px;
+}
+#contact-info table caption{
+    line-height: 40px;
+    font-size:14px;
+    text-align: left;
+    font-weight: bold;
+}
+#contact-info table td{
+    font-size: 14px;
+    line-height: 30px;
+}
+
+#contact-info table .label{
+    text-align: right;
+}
+#contact-info table .info{
+    padding-left:10px;
+}
+
+#contact-form{
+    width: 60%;
+    float: left;
+}
+
+#contact-form label,
+#contact-form input[type=text],
+#contact-form textarea{
+    display: block;
+}
+
+#contact-form input[type=text],
+#contact-form textarea{
+    width:90%;
+    background: rgba( 0, 0, 0, .4 );
+    border: 1px solid rgba( 255, 255, 255, .15 );
+    border-radius: 5px;
+    padding: 5px;
+    color: rgba( 255, 255, 255, .7 );
+}
+
+#contact-form input[type=text]{
+    max-width: 350px
+}
+
+#contact-form textarea{
+    height: 250px;
+}
+
+#contact-form label{
+    line-height: 28px;
+    font-size:16px;
+    padding-left:5px;
+}
+#contact-form div.btn-warp{
+    text-align:right; 
+    width:90%;
+    padding:5px;
+}
+#contact-form .button{
+    background: rgba( 0, 0, 0, .4 );
+}
+
+.small-w-scren #contact-form{
+    width:100%;
+    float: none;
+}
+
+.small-w-scren #contact-form form{
+    padding-left:20px;
+}
+
+#thanks{
+    display: none;
+    height: 1000px;
+}
+
+#thanks h1{
+    line-height: 200px;
+    font-size: 60px;
+    padding-left: 30px;
+    letter-spacing: 5px;
+    font-family:  'Arial Narrow', "微软雅黑";
+}
+
+#thanks p{
+    padding-left: 30px;
+    font-size:16px;
+    line-height: 30px;
+}
+
+#footer{
+    margin-top:100px;
+}
+.only-thanks #header,
+.only-thanks #main,
+.only-thanks #sidebar,
+.only-thanks #footer{
+    visibility: hidden;
+    background: red;
+}
+
+.only-thanks #thanks{
+    display: block;
+}
+
+.only-thanks{
+    overflow: hidden;
+}

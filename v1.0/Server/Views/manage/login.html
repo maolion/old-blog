@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录到博客管理中心</title>
+    <%include ../header.html%>
+    <link rel="stylesheet" type="text/css" href="/CSS/manage/login.css" />
+    <script type="text/javascript" src="/Cox/Cox.js" ></script>
+    <script type="text/javascript">
+        Modules.addRoot( "Cox", "/Cox/modules" );
+    </script>
+    <script type="text/javascript">
+        Use( Modules( "~/Cox/UI/Dom", "~/Cox/Net/Ajax" ), function( require ){
+            var 
+                Dom  = require( "Dom" ),
+                Ajax = require( "Ajax" ),
+                btn  = Dom.query( "#login form input[type=submit]" )[0],
+
+                err  = Dom( "#err-message-box" ),
+                state_handlers = {
+                    "ok"   : function( message ){
+                        btn.disabled = false;
+                        btn.value    = "登录";
+                        document.location   = "/manage";
+                    },
+                    "fail" : function( message ){
+                        btn.disabled = false;
+                        btn.value    = "登录";
+                        err.css( "display", "block" );
+                        err.html( message );
+                        err.anima( {
+                            opacity : 1,
+                            top     : -50
+                        } );
+                    },
+                    "limit" : function( waittime ){
+                        //btn.get(0).disabled = false;
+                        btn.value = "登录被限制";
+                        err.css( "display", "block" );
+                        err.html( "登录被限制." );
+                        err.anima( {
+                            opacity : 1,
+                            top     : -50
+                        } );
+                        setTimeout( function(){
+                            var t = null;
+                            waittime -= 1000;
+                            t         = ~~( waittime / 1000 );
+                            if( t === 0 ){
+                                btn.disabled = false;
+                                btn.value    = "登录";
+                                err.anima( {
+                                    opacity : 0,
+                                    top     : -40
+                                }, function(){
+                                    err.css( "display", "none" );
+                                } );
+                            }else{
+                                btn.value = t + "秒";
+                                err.html( "请于" + t + "秒后在登录." );
+                                setTimeout( arguments.callee, 1000 );
+                            }
+                        }, 1000 );
+                    }
+                }
+            ;
+
+            Dom.query( "input" )[0].focus();
+            Dom(btn).on( "click", function( event ){
+                this.disabled = true;
+                this.value = "登录中...";
+                err.css( {
+                    display : "none",
+                    opacity : 0
+                } );
+                if( event.preventDefault ){
+                    event.preventDefault();
+                }else{
+                    window.event.returnValue = false;
+                }
+                Ajax.submitForm( 
+                    "","json", Dom.query( "#login form" )[0],
+                    function( data ){
+                        state_handlers[data.state]( data.message );
+                    },
+                    function(){
+                        state_handlers.fail( "未能完成登录验证操作." );
+                    }
+                );
+            } );
+        } );
+    </script>
+</head>
+<body>
+
+    <div id="container">
+        <div id="main" >
+            <div id="login">
+                <span id="err-message-box">Error</span>
+                <form method="post" action="/manage/login" >
+                    <div><label>用 户:</label> <input type="text"  name="user" /></div>
+                    <div><label>密 码:</label> <input type="password" name="pwd" /></div>
+                    <div><input type="submit" value="登录" /> <a href="/">返回博客</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<section class="post-tags">
+    <div class="warp" >
+        <header><h1>标签</h1></header>
+        <%postTags.forEach( function( tag, index ){%>
+        <a class="tag<%=~~(Math.random()*10)%>" title="<%=tag%>" href="/blog/articles?tag=<%=tag%>"><%=tag%></a>
+        <%})%>
+    </div>
+</section>

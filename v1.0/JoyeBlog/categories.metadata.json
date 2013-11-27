@@ -1,0 +1,1 @@
+{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "JoyeBlog.categories", "name" : "_id_" }, { "v" : 1, "key" : { "name" : 1 }, "ns" : "JoyeBlog.categories", "name" : "name_1", "background" : true, "safe" : null } ] }

@@ -1,0 +1,32 @@
+{
+    "name"        : "JoyeBlog",
+    "description" : "Joye's Blog",
+    "version"     : "0.0.1",
+    "private"     : true,
+    "dependencies": {
+        "express" : "3.3.5"
+    },
+    "main"        : "Server.js",
+    "engines"     : {
+        "node" : "*"
+    },
+    "debug"       : {
+        "filters" : [
+            "^[\\\\\/]ERROR\\.log$",
+            "^[\\\\\/]DaemonRunTime\\.log$",
+            "^([\\\\\/])Logs\\1?",
+            "^([\\\\\/])Views\\1?",
+            "^([\\\\\/])Caches\\1?",
+            "^([\\\\\/])node_modules\\1?",
+
+            "\\.js.swp$"
+        ],
+        "watch" : {
+            "persistent" : true, 
+            "interval"   : 500
+        },
+        "arguments" : [
+        ]
+
+    } 
+}

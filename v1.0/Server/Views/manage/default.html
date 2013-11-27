@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Joye的博客管理中心</title>
+    <%include ../header.html%>
+    <link rel="stylesheet" type="text/css" href="/CSS/manage/default.css" />
+    
+</head>
+<body>
+    <div id="container">
+        <div id="main" >
+            <section id="home" class="manage-panel">
+                <header>
+                    <button class="button refresh">刷新</button>
+
+                    <button class="button clear-errlog">清空错误日记</button>
+                    <button class="button clear-cache">清空缓存文件</button>
+                    <button class="button clear-rtlog">清空运行时日记</button>
+                    <a href="/manage/logs" class="button" target="_blank">查看运行时日记</a>
+                </header>
+                <pre class="view" ></pre>
+            </section>
+            <section id="info" class="manage-panel" >
+                <div class="navbar" >
+                    <ul class="btn-list float-block-container " >
+                        <li class="message" >
+                            <span>来信</span>
+                        </li>
+                        <li class="comment" >
+                            <span>评论</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="table-warp">
+                    <div id="message-list" >
+                        <span class="tip" ></span>
+                        <table cellspacing="0" border="0" width="100%" >
+                            <tbody class="list-table" >
+                                
+                            </tbody>
+                        </table>
+                        <footer>
+                            <button class="button delete-all">删除选中</button>
+                            <button class="button refresh">刷新</button>
+                            <button class="button prev">上一页</button>
+                            <button class="button next">下一页</button>
+                        </footer>
+                    </div>
+                    <div id="comment-list" >
+                        <span class="tip" ></span>
+                        <table cellspacing="0" border="0" width="100%" >
+                            <tbody class="list-table" >
+                            </tbody>
+                        </table>
+                        <footer>
+                            <button class="button delete-all">删除选中</button>
+                            <button class="button refresh">刷新</button>
+                            <button class="button prev">上一页</button>
+                            <button class="button next">下一页</button>
+                        </footer>
+                    </div>
+                </div>
+            </section>
+            <section id="post" class="manage-panel" >
+                <header>
+                </header>
+                <div class="float-block-container">
+                    <div id="category-list">
+                        <header>分类列表</header>
+                        <ul>
+                            <li class="category-all" >
+                                <span>全部<span class="count" >(0)</span></span>
+                                <button title="添加" class="add amd-btn" ></button>
+                            </li>
+                            <li class="category-draft" >
+                                <span>草稿<span class="count" >(0)</span></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="post-list">
+                        <div class="search-box" >
+                            <input name="keyword" type="text" /><input class="button" type="submit" value="搜索" />
+                            <span class="search-info" ></span>                            
+                        </div>
+                        <table cellspacing="0" border="0" width="100%" >
+                            <tbody class="post-list-table" >
+                                <tr>
+                                    <th width="50%" >名称</th>
+                                    <th width="10%" >浏览数</th>
+                                    <th width="10%" >评论数</th>
+                                    <th class="optional" width="10%" >公开</th>
+                                    <th width="20%" >添加时间</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <footer>
+                            <button class="button refresh" >刷新</button>
+                            <button class="button prev" >上一页</button>
+                            <button class="button next" >下一页</button>
+                            <button class="button post" >发表新文章</button>
+                        </footr>
+                    </div>
+                </div>
+                <div class="float-block-container editor">
+                    <div id="annex-list" >
+                        <header>
+                            <div class="file-btn" >
+                                <label for="file-uploader-1" class="button" >添加附件</label>
+                                <input id="file-uploader-1" type="file" class="uploader" />
+                            </div>
+                        </header>
+                        <ul></ul>
+                    </div>
+                    <div id="post-editor">
+                        <form action="/manage/savePost" method="post" >
+                            <select title="选择文章分类" name="category">
+                                <option value="" >选择文章分类</option>
+                            </select>
+                            <input title="输入文章标题" placeholder="标题" name="title" type="text" />
+                            <textarea title="输入文章内容" name="content" ></textarea>
+                            <input title="输入文章连接名" placeholder="链接名" name="linkname" type="text" />
+                            <input title="输入文原文连接" placeholder="原文连接" name="originlink" type="text" />
+                            <input title="输入文章标签" placeholder="标签" name="tags" type="text" />
+                            <input type="hidden" name="state" value="1" />
+                            <input type="hidden" name="id" value="" />
+                            <div class="line" >
+                                <button title="保存/发表" class="button post">保存/发表</button>
+                                <button title="存为草稿" class="button draft" >存为草稿</button>
+                                <button title="关闭" class="button close" >关闭</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section id="friend" class="manage-panel">
+                <table cellspacing="0" border="0" width="100%" >
+                    <tbody class="list-table" >
+                        <tr>
+                            <th width="2.5%">-</th>
+                            <th width="25%" >标题</th>
+                            <th width="40%" >URL</th>
+                            <th width="15%" >作者</th>
+                            <th width="7.5%" >公开</th>
+                            <th width="10%" >操作</th>
+                        </tr>
+                    </tbody>        
+                </table>
+                <footer>
+                    <button class="button add">添加</button>
+                    <button class="button refresh">刷新</button>
+                </footer>
+            </section>
+            <section id="about" class="manage-panel float-block-container">
+                <header>
+                    <button class="button add">添加</button>
+                    <button class="button refresh">刷新</button>
+                </header>
+                
+            </section>
+
+        </div>
+        <div id="sidebar">
+            <a href="/manage/loginout" class="exit nav-btn" >
+                <span class="icon icon-24" ></span>
+                <span class="label">退出博客管理中心</span>
+            </a>
+
+            <nav class="navigation">
+                <ul class="nav-btn-list" >
+                    <li class="nav-btn manage" action >
+                        <span class="icon icon-16" ></span>
+                        <span class="label">管理中心首页</span>
+                    </li>
+                    <li class="nav-btn contact" target="InfoList" >
+                        <span class="icon icon-16" ></span>
+                        <span class="label">信息</span>
+                        <span id="new-info-tip" class="tip"></span>
+                    </li>
+                    <li class="nav-btn post" target="PostList" >
+                        <span class="icon icon-16" ></span>
+                        <span class="label">文章管理</span>
+                    </li>
+                    <!-- <li class="nav-btn work" >
+                        <span class="icon icon-16" ></span>
+                        <span class="label">作品信息</span>
+                    </li> -->
+                    <li class="nav-btn friends" target="FriendLinks" >
+                        <span class="icon icon-16" ></span>
+                        <span class="label">友情链接</span>
+                    </li>
+                    <li class="nav-btn about" target="HistoryList" >
+                        <span class="icon icon-16" ></span>
+                        <span class="label">关于信息</span>
+                    </li>
+                    <li class="nav-btn blog">
+                        <a href="/Blog"><span class="icon icon-16" ></span></a>
+                        <span class="label">转到博客首页</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div id="dialog">
+        <div class="dialog-mask"></div>
+    </div>
+    <div id="tip">
+    </div>
+    <%include ../scripts.html%>
+    <script type="text/javascript" src="/Libs/manage/main.js" ></script>
+</body>
+</html>

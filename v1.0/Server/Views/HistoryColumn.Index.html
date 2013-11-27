@@ -1,0 +1,10 @@
+<section id="post-index" class="post-list">
+    <div class="warp">
+        <header><h1>目录</h1></header>
+        <ul>
+            <%posts.forEach( function( post ){ %>
+            <li><a title="<%=post.title%>" href="<%=Utils.getArticleUrl( post.category, post.linkname )%>"><%=post.title%></a></li>
+            <%});%>
+        </ul>
+    </div>
+</section>

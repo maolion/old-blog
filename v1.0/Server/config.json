@@ -1,0 +1,53 @@
+{
+    "debug" : true,
+    "secrets" : {
+        "cookie"  : "JoyeBlog&maolion.j@gmail.com",
+        "session" : "JoyeBlog&maolion.j@gmail.com"
+    },
+    "server" : {
+        "hostname" : "http://maolion.com",
+        "host"     : "106.187.34.231",
+        "port"     : 80
+    },
+    "db" : {
+        "connectInfo" : "maolion:123@localhost:27017/JoyeBlog"
+    },
+    "temple" : {
+        "root"   : "./Server/Views",
+        "ext"    : "html",
+        "params" : {
+            "title" : "Joye's Blog"
+        }
+    },
+    "publics" : [
+        { "prefix" : "/Blog", "directory" : "/Blog", "open" : false },
+        { "prefix" : "/Cox", "directory" : "/Cox", "open" : false },
+        { "prefix" : "/Demos", "directory" : "/Demos", "open" : true },
+        { "prefix" : "/Downloads", "directory" : "/Downloads", "open" : false },
+        { "prefix" : "/manage/logs", "directory" : "/Server/Logs", "open" : true },
+        { "prefix" : "/manage/caches", "directory" : "/Server/Caches", "open" : true }
+    ],
+    "cache" : {
+        "root"      : "./Server/Caches",
+        "maxAge"    : 0
+    },
+    "log" : {
+        "root"   : "./Server/Logs",
+        "maxAge" : 604800000
+    },
+    "upload" : {
+        "root" : "./Server/Uploads",
+        "limitExts" : [],
+        "limitSize" : 0
+    },
+    "manage" : {
+        "auth" : {
+            "user"   : "67b4b25bb52d828f47214c1aecbab9e6",
+            "pwd"    : "de42a2e7d1228a5656ba08e27ad8c1ea",
+            "limit"  : {
+                "times"    : 3,
+                "waittime" : 30000
+            }
+        }
+    }
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>搜索文章 - <%= title %></title>
+    <%include header.html%>
+    <link rel="stylesheet" type="text/css" href="/CSS/blog.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/search.css" / >
+    <link rel="stylesheet" type="text/css" href="/CSS/SyntaxHighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/SyntaxHighlighter/Monokai.css" />
+    <script type="text/javascript">
+        var ACTION = "<%=action%>";
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div id="main" class="float-block-container" >
+            <header id="search" class="separate-line-after" >
+                <form method="get" action="/Blog/search" >
+                    <div><input type="text" placeholder="输入搜索关键字..." name="keywords" value="<%=keywords%>" /><input type="submit" value="搜索" /></div>
+                </form>
+                <div class="tip">
+                    <a id="search-guide-btn" href="###">搜索输入说明：</a>
+<pre  id="search-guide" >
+
+`#分类#` 井号中指明要搜索文章的分类名称 多个用`;`隔开 
+         如 #JavaScript# 搜索全部属于 JavaScript分类的文章
+
+其他关键字只需要放在后面，多个关键字用空格隔开
+
+注：请按以上说明排列顺序输入, 特殊符号为可选
+</pre>
+                </div>
+                <div class="info-bar">共搜索到 <%=postCount%> 条相关记录，用时 <%=time/1000%>s</div>
+            </header>
+            <div id="main-column" >
+                <%if( posts.length ){%>
+                <%posts.forEach( function( post ){ %>
+                <%    var link = Utils.getArticleUrl( post.category, post.linkname );%>
+                <section class="post" >
+                    <header class="separate-line-after" >
+                        <h1 class="title" >
+                            <a href="<%=link%>"><%=post.title%></a>
+                        </h1>
+                        <span class="info" ><%=Utils.dateFormat( new Date( post.adate ), "%Y年%M月%D日" )%> - By <%=post.author%> | <a href="<%=link%>">浏览(<%=post.visits%>)</a> | <a href="<%=link%>#comment">评论(<%=post.comments%>)</a> </span>
+                    </header>
+                    <article><%-post.summary%></article>
+                    <footer>
+                        <a href="<%=link%>" class="read-btn" >阅读全文</a>
+                    </footer>
+                </section>
+                <%} )%>
+                <%}else{%>
+                <section class="none" >
+                    <span>无相关记录</span>
+                </section>
+                <%}%>
+                <section class="page-btn-bar separate-line-before float-block-container" >
+                    <%if( page > 1 ){%>
+                    <a href="<%=Utils.getPageUrl( URL, page - 1 )%>" class="prev" >上一页</a>
+                    <%}%>
+                    <span><%=page%> / <%=pageCount%></span>
+                    <%if( page < pageCount ){%>
+                    <a href="<%=Utils.getPageUrl( URL, page + 1 )%>" class="next" >下一页</a>
+                    <%}%>
+                </section>
+            </div>
+
+            <div id="history-column" >
+                <%include HistoryColumn.TopPost.html%>
+                <%include HistoryColumn.HotPost.html%>
+                <%include HistoryColumn.Category.html%>
+                <%include HistoryColumn.PostTags.html%>
+                <%include HistoryColumn.FriendLinks.html%>
+                <%include HistoryColumn.Index.html%>
+            </div>
+        </div>
+        <%include sidebar.html%>
+        <%include footer.html%>
+    </div>
+    <%include scripts.html%>
+    <script type="text/javascript">
+        Use( Modules( "~/Cox/UI/Dom" ), function( require ){
+            var 
+                Dom = require( "Dom" ),
+                searchguide = Dom( "#search-guide" )
+            ;
+            Dom( "#search-guide-btn" ).on( "click", function(){
+                searchguide.toggleClass( "show" );
+            } );
+        } );
+    </script>
+</body>
+</html>

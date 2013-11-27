@@ -1,0 +1,289 @@
+/* basic */
+html, body{
+    min-height:100.5%;
+}
+html, body, div, span, h1, h2, h3, h4, p, pre, img, strong, ol, ul, li {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+
+ol, ul, li, dl, dt, dd{
+    list-style:none;
+}
+
+input{
+    padding-top:0;
+    padding-bottom:0;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+input[type=hidden]{
+    display: none;
+}
+
+input[type=text],input[type=password],textarea{
+    outline:none;
+    resize:none;
+    font-family: "微软雅黑";
+}
+
+.button{
+    outline:none;
+}
+
+a{
+    color:rgba( 255, 255, 255, .9 );
+    text-decoration:none;
+}
+a:hover {
+    color:rgba( 255, 255, 255, .8 );
+    text-decoration:underline;
+}
+
+
+.button{
+    border:1px solid rgba( 255, 255, 255, .2 );
+    background-color: #333;
+    border-radius: 3px;
+    padding: 5px 10px;
+    color: rgba( 255, 255, 255, .8 );
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: rgba( 255, 0, 0, .5 ) !important;
+}
+
+hr,
+.separate-line-before:before,
+.separate-line-after:after{
+    height: 0;
+    border: none;
+    content:"";
+    display: block;
+    border-top:1px solid rgba( 0, 0, 0, .2 );
+    border-bottom: 1px solid rgba( 255, 255, 255, .1 );
+} 
+
+.float-block-container:after{
+    clear:both;
+    content:".";
+    height:0;
+    visibility:hidden;
+    display:block;
+}
+.float-block-container{
+    zoom:1;
+}
+
+body{
+    position:relative;
+    font-family: "Microsoft YaHei", "微软雅黑",Helvetica,Georgia,Arial,sans-serif,'宋体';
+    background-color:#323232;
+    overflow-x:hidden;
+    color:#dfdfdf;
+    font-size:13px;
+}
+
+#main{
+    min-height: 100%;
+    position:relative;
+    left:5px;
+    padding-top:10px;
+}
+
+#sidebar{
+    position:fixed;
+    top:0;
+    right:0;
+    width:50px;
+    height:200%;
+    padding-top:5px;
+    background:#151515;
+    z-index: 1000;
+}
+
+.small-w-scren #sidebar{
+    width:30px;
+}
+
+#sidebar .nav-btn{
+    display:block;
+    height:38px;
+    position: relative;
+}
+
+.small-h-scren #sidebar .nav-btn{
+    height:30px;
+}
+
+#sidebar .nav-btn:hover{
+    background-color:rgba(255,0,0,.5);
+} 
+
+#sidebar .nav-btn .icon{
+    display:block;
+    position:absolute;
+    cursor:pointer;
+    top:50%;
+    left:50%;
+    opacity:.4;
+}
+
+#sidebar .nav-btn:hover .icon{
+    opacity:.8;
+}
+
+#sidebar .nav-btn[action] .icon{
+    opacity:1;
+}
+
+#sidebar .nav-btn .icon-24{
+    height:24px;
+    width:24px;
+    margin-left:-12px;
+    margin-top:-12px;
+}
+
+#sidebar .nav-btn .icon-16{
+    height:16px;
+    width:16px;
+    margin-left:-8px;
+    margin-top:-8px;
+}
+
+#sidebar a{
+    cursor:pointer;
+}
+
+#sidebar a.res .icon{
+    background: url("../images/24_icons/nav-btn.png") 0 0 no-repeat;
+}
+
+#to-top{
+    position: fixed;
+    z-index: 1001;
+    width:24px;
+    height:24px;
+    bottom: 10px;
+    right:13px;
+    opacity:.8;
+    display: none;
+    background: url("../images/24_icons/nav-btn.png") 0 -72px no-repeat;
+}
+#to-top:hover{
+    opacity: 1;
+}
+
+.small-w-scren #to-top{    
+    width:16px;
+    height:16px;
+    background: url("../images/16_icons/nav-btn.png") 0 -192px no-repeat;
+    right:7px;
+}
+
+#sidebar a:hover{
+    color:white;
+}
+
+#sidebar a:hover{
+    color:white;
+}
+
+#sidebar .navigation{
+    display: block;
+    margin-top:20px;
+}
+
+.small-h-scren #sidebar .navigation{
+    margin-top:5px;
+}
+
+#sidebar .navigation .nav-btn-list{
+    display: block;
+}
+
+#sidebar .nav-btn .label{
+    display: block;
+    position: absolute;
+    white-space: nowrap;
+    right:40px;
+    top:5px;
+    padding: 5px 10px;
+    border: 1px solid #666;
+    border-radius: 3px;
+    background: #151515;
+    box-shadow: -1px 3px 3px rgba( 0, 0, 0, .3 );
+    display: none;
+    opacity: 0;
+}
+
+.small-h-scren #sidebar .nav-btn .label{
+    top:2px;
+}
+
+.small-w-scren #sidebar .nav-btn .label{
+    right : 20px;
+}
+
+#sidebar .nav-btn .label:before{
+    content: "";
+    display: block;
+    position: absolute;
+    right:-5px;
+    top:8px;
+    width:8px;
+    height:8px;
+    border:1px solid #666;
+    border-left: none;
+    border-bottom: none;
+    background: #151515;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+}
+
+#sidebar li .icon{
+    background: url("../images/16_icons/nav-btn.png") 0 0 no-repeat;
+}
+
+#sidebar li.home .icon{
+    background-position:0 -16px;
+}
+
+#sidebar li.post .icon{
+    background-position:0 -32px;
+}
+
+#sidebar li.work .icon{
+    background-position:0 -48px;
+}
+
+#sidebar li.about .icon{
+    background-position:0 -64px;
+}
+
+#sidebar li.contact .icon{
+    background-position:0 -80px;
+}
+
+#sidebar li.friends .icon{
+    background-position:0 -96px;
+}
+
+#sidebar li.git .icon{
+    background-position:0 -112px;
+}
+
+#sidebar li.manage .icon{
+    background-position:0 -128px;
+}

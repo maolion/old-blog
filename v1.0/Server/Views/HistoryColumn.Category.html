@@ -1,0 +1,17 @@
+<section class="post-category">
+    <div class="warp" >
+        <header><h1>分类</h1></header>
+        <div class="float-block-container" >
+            <ul class="list" >
+                <%postCategorys[0].forEach( function( category ){%>
+                <li><a title="<%=category%>" href="/blog/articles?category=<%=category%>"><%=category%></a></li>
+                <%} )%>
+            </ul>
+            <ul class="list" >
+                <%postCategorys[1].forEach( function( category ){%>
+                <li><a title="<%=category%>" href="/blog/articles?category=<%=category%>"><%=category%></a></li>
+                <%} )%>
+            </ul>
+        </div>
+    </div>
+</section>

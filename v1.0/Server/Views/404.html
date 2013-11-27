@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%include header.html%>
+    <title><%= "404 PAGE NOT FOUND -" +  title %></title>
+    <%include header.html%>
+    <style type="text/css">
+        html, body{
+            min-height: 100%;
+        }
+        #container{
+            text-align: center;
+            padding-top:10%;
+        }
+        span{
+            font-family: "Consolas";
+            display: block;
+            text-shadow:1px 5px 5px rgba( 0, 0, 0, .5 );
+        }
+        span.state{
+            font-size:1000%;
+        }
+        span.text{
+            font-size:300%;
+            font-weight: bold;
+        }
+        span.link{
+            margin-top:2%;
+            font-size:150%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <span class="state" >404</span>
+        <span class="text" >PAGE NOT FOUND</span>
+        <span class="link" ><a href="/Blog/">Joye's Blog</a></span>
+    </div>
+</body>
+</html>

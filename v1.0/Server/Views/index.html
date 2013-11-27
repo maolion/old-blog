@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <%include header.html%>
+    <link rel="stylesheet" type="text/css" href="/CSS/blog.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/SyntaxHighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/SyntaxHighlighter/Monokai.css" />
+    <script type="text/javascript">
+        var ACTION = "<%=action%>";
+    </script>
+</head>
+<body>
+
+    <div id="container">
+        <div id="main" class="float-block-container" >
+            <header id="Jiang" >
+                <h1>Joye's&nbsp;Blog</h1>
+                <a class="avatar" href="/blog"><img src="http://www.gravatar.com/avatar/8c0a3533b8e3cb2bf8692365eda6b89e?s=150" /></a>
+<pre>
+<span class="comment">//Happy, Codeing</span>
+<span class="keyword">Use</span>( <span class="keyword">Modules</span>( <span class="string">"HTTP"</span>, <span class="string">"WebKit"</span> ), <span class="keyword">function</span>( require ){
+    <span class="keyword">var</span> 
+        HTTP     = require( <span class="string">"HTTP"</span> ),
+        Webkit   = require( <span class="string">"WebKit"</span> ),
+        JoyeBlog = null
+    ;
+    JoyeBlog = <a href="https://github.com/maolion/cox.js" target="_blank" ><span class="keyword">Class</span></a>( <span class="string">"JoyeBlog"</span>, <span class="keyword">Extends</span>( HTTP ), <span class="keyword">function</span>( Static, Public ){
+        Public.<span class="keyword">constructor</span> = <span class="keyword">function</span>(){
+            WebKit.render( this.request( <a href='/blog'><span class="string">"Joye's Blog"</span></a> ) );
+        };
+    } );
+    <span class="keyword">new</span> JoyeBlog();
+} );
+</pre>
+                <p>分享心得，记录生活</p>
+            </header>
+            <div id="main-column" >
+                <%posts.forEach( function( post ){ %>
+                <%    var link = Utils.getArticleUrl( post.category, post.linkname );%>
+                <section class="post" >
+                    <header class="separate-line-after" >
+                        <h1 class="title" >
+                            <a href="<%=link%>"><%=post.title%></a>
+                        </h1>
+                        <span class="info" ><%=Utils.dateFormat( new Date( post.adate ), "%Y年%M月%D日" )%> - By <%=post.author%> | <a href="<%=link%>">浏览(<%=post.visits%>)</a> | <a href="<%=link%>#comment">评论(<%=post.comments%>)</a> </span>
+                    </header>
+                    <article><%-post.summary%></article>
+                    <footer>
+                        <a href="<%=link%>" class="read-btn" >阅读全文</a>
+                    </footer>
+                </section>
+                <%} )%>
+                <section class="tip">
+                    <a class="wait" href="/blog/articles" >更多文章</a>
+                </section>
+            </div>
+
+            <div id="history-column" >
+                <%include HistoryColumn.HotPost.html%>
+                <%include HistoryColumn.Category.html%>
+                <%include HistoryColumn.PostTags.html%>
+                <%include HistoryColumn.FriendLinks.html%>
+                <%include HistoryColumn.Index.html%>
+            </div>
+        </div>
+        <%include sidebar.html%>
+        <%include footer.html%>
+    </div>
+    <%include scripts.html%>
+</body>
+</html>

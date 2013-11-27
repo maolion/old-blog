@@ -1,0 +1,12 @@
+{
+    "name"    : "Cox.js",
+    "version" : "1.0",
+    "private" : false,
+    "main"    : "./Cox.js",
+    "dependencies" : {
+    },
+    "about"   : {
+        "author" : "maolion",
+        "email"  : "maolion.j@gmail.com"
+    }
+}

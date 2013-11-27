@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= post.title +"-" +  title %></title>
+    <%include header.html%>
+    <link rel="stylesheet" type="text/css" href="/CSS/blog.css" /> 
+    <link rel="stylesheet" type="text/css" href="/CSS/SyntaxHighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/SyntaxHighlighter/Monokai.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/articles.css" />
+</head>
+<body>
+    <div id="container">
+        <header id="header" >
+            <span>返回 > </span>
+            <a href="/Blog">首页</a> / <a href="/blog/articles/">文章列表</a>
+            <% if( category ){ %> / <a href="/blog/articles/?category=<%=category%>"><%=category%></a> <%}%>
+        </header>
+        <div id="main" class="float-block-container" >
+            <div id="main-column" >
+                <section class="post" >
+                    <header class="separate-line-after" >
+                        <h1 class="title" >
+                            <a href="./<%=_filename%>"><%=post.title%></a>
+                        </h1>
+                        <span class="info" ><%=Utils.dateFormat( new Date( post.adate ), "%Y年%M月%D日" )%> - By <%=post.author%> | <a href=./"<%=_filename%>">浏览(<%=post.visits%>)</a> | <a href="#comment">评论(<%=post.comments%>)</a> </span>
+                        <div class="tags" >
+                            标签: 
+                            <%post.tags.forEach( function( tag ){ %>
+                            <a href="#"><%=tag%></a>
+                            <%});%>
+                        </div>
+                    </header>
+                    <article><%-post.html%></article>
+                    <footer class="float-block-container separate-line-before" >
+                        <p>
+                            原文连接: <a href="<%=post.originlink%>"><%=decodeURI( post.originlink )%></a>
+                        </p>
+                    </footer>
+                </section>
+                <section id="comments" class="comments" >
+                    <header class="separate-line-after" >
+                        <a id="comment"></a>
+                        <h1>对于 "<%=post.title%>" 的评论</h1>
+                    </header>
+                    <section class="form">
+                        <form id="comment-form" method="post" action="#" class="comment-block" >
+                            <a class="avatar-warp" title="单击修改联系信息" ><img  src="<%=cookies.visitAvatar || "/images/default_avatar.jpg" %>" class="avatar" /></a>
+                            <div class="warp">
+                                <div class="textarea-warp">
+                                    <span class="tip" ></span>
+                                    <textarea placeholder="你有什么想说的嘛？" name="content" ></textarea>
+                                </div>
+                                <div style="text-align:right;margin-top:5px" >
+                                    <input type="reset" class="button" value="取消" />
+                                    <input type="submit" class="button submit" value="提交" />
+                                </div>
+                                <input type="hidden" name="postid" value="<%=post._id%>" />
+                                <input type="hidden" name="commentid" value="" />
+                                <input type="hidden" name="at" value="" />
+                                <input type="hidden" name="atwebsite" value="" />
+                                <input type="hidden" name="atemail" value="" />
+                                <div id="visit-info">
+                                    <label>呢称</label> 
+                                    <input placeholder="" type="text" name="name" value="<%=cookies.visitName||""%>" />
+                                    <label>邮箱</label>
+                                    <input placeholder="便于联系到你." type="text" name="email" value="<%=cookies.visitEmail||""%>" />
+                                    <label>个人主页</label>
+                                    <input placeholder="http://..." type="text" name="website" value="<%=cookies.visitWebsite||""%>" />
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <section class="tip" >加载中...</section>
+                    <section class="none">
+                        <span>= = , 大家都没什么想说的嘛？</span>
+                    </section>
+                    <footer>
+                        <span class="wait">加载中,请稍后...</span>
+                        <span class="none" >没有更多的评论数据!</span>
+                        <a class="more" href="###">加载更多</a>
+                    </footer>
+                </section>
+            </div>
+            <div id="history-column" >
+                <%include HistoryColumn.LikePost.html%>
+                <%include HistoryColumn.TopPost.html%>
+                <%include HistoryColumn.HotPost.html%>
+                <%include HistoryColumn.Category.html%>
+                <%include HistoryColumn.PostTags.html%>
+                <%include HistoryColumn.FriendLinks.html%>
+            </div>
+        </div>
+        <%include sidebar.html%>
+        <%include footer.html%>
+    </div>
+    <%include scripts.html%>
+    <script type="text/javascript" >
+        Use( Modules( "~/Cox/UI/Dom" ), function( require ){
+            var 
+                Dom = require( "Dom" ),
+                comments = Dom( "#comments" )
+            ;
+            function visibility(){
+                if( comments.ok )return;
+                if( Dom.visibility( comments.get(0) ) ){
+                    comments.ok = true;
+                    Dom.EventProxy.un( "resize", visibility );
+                    Dom.EventProxy.un( "scroll", visibility );
+                    Use( Modules( "/Libs/Comment" ), function( require ){
+                        comments.find( "section.tip" ).remove();
+                        require( "Comment" );
+                    } ).done( function( ok ){
+                        if( !ok ){
+                            comments.find( "section.tip" ).html( "<span>加载评论内容组件失败，请刷新重试</span>" );
+                        }
+                    } )
+                }
+            }
+            Dom.resize( visibility );
+            Dom.scroll( visibility );
+            //Dom.visibility( comments.get(0) );
+        } );
+    </script>
+</body>
+</html>

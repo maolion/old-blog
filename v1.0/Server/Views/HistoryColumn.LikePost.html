@@ -1,0 +1,12 @@
+<%if( likePosts.length ){%>
+<section class="post-list">
+    <div class="warp" >
+        <header><h1>相关</h1></header>
+        <ul>
+            <%likePosts.forEach( function( post ){%>
+            <li><a href="/blog/articles/<%=( post.category&&post.category + "/" ) + post.linkname%>.html"><%=post.title%></a></li>
+            <%} )%>
+        </ul>
+    </div>
+</section>
+<%}%>

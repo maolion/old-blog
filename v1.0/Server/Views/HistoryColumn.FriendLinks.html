@@ -1,0 +1,17 @@
+<section class="friend-links">
+    <div class="warp" >
+        <header><h1>友情连接</h1></header>
+        <div class="float-block-container" >
+            <ul class="list" >
+                <%friendLinks[0].forEach( function( link ){%>
+                <li><a title="<%=link.title%>" target="_blank" href="<%=link.url%>"><%=link.title%></a></li>
+                <%} )%>
+            </ul>
+            <ul class="list" >
+                <%friendLinks[1].forEach( function( link ){%>
+                <li><a title="<%=link.title%>" target="_blank" href="<%=link.url%>"><%=link.title%></a></li>
+                <%} )%>
+            </ul>
+        </div>
+    </div>
+</section>

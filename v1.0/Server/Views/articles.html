@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文章列表 - <%= title %></title>
+    <%include header.html%>
+    <link rel="stylesheet" type="text/css" href="/CSS/blog.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/SyntaxHighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="/CSS/SyntaxHighlighter/Monokai.css" />
+    <style type="text/css">
+        section.post{
+            margin-bottom:5px;
+        }
+    </style>
+    <script type="text/javascript">
+        var ACTION = "<%=action%>";
+    </script>
+</head>
+<body>
+    <div id="container">
+        <header id="header" >
+            <span>返回 > </span>
+            <a href="/blog">首页</a> / <a href="/blog/articles/">文章列表</a>
+        </header>
+        <div id="main" class="float-block-container" >
+            
+            <div id="main-column" >
+                <%if( posts.length ){%>
+                <%posts.forEach( function( post ){ %>
+                <%    var link = Utils.getArticleUrl( post.category, post.linkname );%>
+                <section class="post" >
+                    <header class="separate-line-after" >
+                        <h1 class="title" >
+                            <a href="<%=link%>"><%=post.title%></a>
+                        </h1>
+                        <span class="info" ><%=Utils.dateFormat( new Date( post.adate ), "%Y年%M月%D日" )%> - By <%=post.author%> | <a href="<%=link%>">浏览(<%=post.visits%>)</a> | <a href="<%=link%>#comment">评论(<%=post.comments%>)</a> </span>
+                    </header>
+                    <article><%-post.summary%></article>
+                    <footer>
+                        <a href="<%=link%>" class="read-btn" >阅读全文</a>
+                    </footer>
+                </section>
+                <%} )%>
+                <%}else{%>
+                <section class="none" >
+                    <span>无相关记录</span>
+                </section>
+                <%}%>
+                <section class="page-btn-bar float-block-container" >
+                    <%if( page > 1 ){%>
+                    <a href="<%=Utils.getPageUrl( URL, page - 1 )%>" class="prev" >上一页</a>
+                    <%}%>
+                    <span><%=page%> / <%=pageCount%></span>
+                    <%if( page < pageCount ){%>
+                    <a href="<%=Utils.getPageUrl( URL, page + 1 )%>" class="next" >下一页</a>
+                    <%}%>
+                </section>
+            </div>
+
+            <div id="history-column" >
+                <%include HistoryColumn.TopPost.html%>
+                <%include HistoryColumn.HotPost.html%>
+                <%include HistoryColumn.Category.html%>
+                <%include HistoryColumn.PostTags.html%>
+                <%include HistoryColumn.FriendLinks.html%>
+                <%include HistoryColumn.Index.html%>
+            </div>
+        </div>
+        <%include sidebar.html%>
+        <%include footer.html%>
+    </div>
+    <%include scripts.html%>
+</body>
+</html>

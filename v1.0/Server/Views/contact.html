@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>联系与反馈-<%= title %></title>
+    <%include header.html%>
+    <link rel="stylesheet" type="text/css" href="/CSS/blog.css" /> 
+    <link rel="stylesheet" type="text/css" href="/CSS/contact.css" />
+    <script type="text/javascript">
+        var ACTION = "<%=action%>";
+    </script>
+</head>
+<body>
+    <div id="container"  >
+        <header id="header" class="separate-line-after" >
+            <h1>联系与反馈</h1>
+            <h2>Contact & Feedback</h2>
+        </header>
+        
+        <div id="main" class="float-block-container" >
+            <div id="contact-info" >
+                <div class="warp separate-line-after">
+                    <p>有什么想对我说的嘛，或者...</p>
+                    <p>如果您在浏览本博客时遇到程序功能运行错误问题和发现博客中内容有涉及版权问题、或对完善我的博客有好的建议,</p>
+                    <p>那么，您可以通过该处提供的任何联系方式来向我反馈您的信息,与我取得联系.</p>
+                    <hr />
+                    <table cellspacing="0" border="0" >
+                        <caption>我的联系信息</caption>
+                        <tbody>
+                            <tr>
+                                <td class="label" >姓名 :</td>
+                                <td class="info" >江宜玮, Joye</td>
+                            </tr>
+                            <tr>
+                                <td class="label" >电话 :</td>
+                                <td class="info" >18650963830</td>
+                            </tr>
+                            <tr>
+                                <td class="label" >邮箱 :</td>
+                                <td class="info" >maolion.j@gmail.com</td>
+                            </tr>
+                            <tr>
+                                <td class="label" >QQ :</td>
+                                <td class="info" >540730881</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="contact-form">
+                <form method="post" action="/blog/contact/send" >
+                    <label>姓名</label>
+                    <input type="text" name="name" placeholder="What your name..." value="<%=cookies.visitName||""%>" />
+                    <label>邮箱</label>
+                    <input type="text" name="email" placeholder="you@domain.com" value="<%=cookies.visitEmail||""%>" />
+                    <label>个人主页</label>
+                    <input type="text" name="website" placeholder="http://..." value="<%=cookies.visitWebsite||""%>" />
+                    <label>信息</label>
+                    <textarea name="content" ></textarea>
+                    <div class="btn-warp" >
+                        <input type="submit" value="发送" class="button" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="thanks">
+            <h1>;) 3Q!</h1>
+            <p>非常感谢您的来信，我会尽早将回复信息发送到您的邮箱中。</p>
+            <p>如果需要等待我的回复, 请查看您的收件箱.</p>
+            <br />
+            <p><a href="/blog">Joye's Blog</a></p>
+        </div>
+        <%include sidebar.html%>
+        <%include footer.html%>
+    </div>
+    <%include scripts.html%>
+    <script type="text/javascript">
+        Use( Modules( "~/Cox/UI/Dom", "~/Cox/Net/Ajax", "~/Cox/Net/Cookies" ), function( require ){
+            var 
+                COOKIE_MAX_AGE = 31536000000,
+                RE_EMAIL_SIGN  = /^[\w\.\d]+@[\w\.\d]+\.[A-Za-z]+$/,
+                Dom            = require( "Dom" ),
+                Ajax           = require( "Ajax" ),
+                Cookies        = require( "Cookies" ),
+                body           = Dom( "body" ),
+                thanks         = Dom( "#thanks" ),
+                form           = Dom( "#contact-form form" ),
+                lock           = false,
+                btn            = form.find( "input[type=submit]" )
+            ;
+
+            form.name    = form.find( "input[name=name]" ).get(0);
+            form.email   = form.find( "input[name=email]" ).get(0);
+            form.website = form.find( "input[name=website]" ).get(0);
+            form.content = form.find( "textarea[name=content]" ).get(0);
+            form.content.value = "";
+            form.on( "submit", function( event ){
+                var date = null;
+                Dom.stopEventDefault( event );
+                if( lock ){
+                    return;
+                }
+                form.name.value    = XString.trim( form.name.value );
+                form.email.value   = XString.trim( form.email.value );
+                form.website.value = XString.trim( form.website.value );
+                if( !form.name.value
+                 || !RE_EMAIL_SIGN.test( form.email.value )
+                ){
+                    alert( "我需要您的姓名和正确格式的邮箱地址.谢谢" );
+                    form.name.focus();
+                    return;
+                }
+                if( !form.content.value ){
+                    alert( "是不是漏了什么？不是说有话跟我说嘛？" );
+                    form.content.focus();
+                    return;
+                }
+                date = new Date;
+                date.setTime( date.getTime() + COOKIE_MAX_AGE );
+                Cookies.set( "visitName", form.name.value, date, "/" );
+                Cookies.set( "visitEmail", form.email.value, date, "/" );
+                Cookies.set( "visitWebsite", form.website.value, date, "/" );
+                
+                btn.get(0).value    = "正在发送...";
+                btn.get(0).disabled = true;
+                lock                = true;
+                Ajax.submitForm( "/blog/contact/send", "json", form.get(0) ).done( function( ok, data ){
+                    lock                = false;
+                    btn.get(0).value    = "发送";
+                    btn.get(0).disabled = false;
+                    if( !ok ){
+                        alert( "抱歉无法向服务器发送请求，请重试" );
+                        return;
+                    }
+                    if( data.state !== "ok" ){
+                        alert( data.message );
+                        return;
+                    }
+                    body.addClass( "only-thanks" );
+                    Dom.scrollTo( 0, thanks.offset().y );
+                } );
+                Dom.resize( function(){
+                    if( Dom.containersClass( body.get(0), "only-thanks" ) ){
+                        Dom.scrollTo( 0, thanks.offset().y );
+                    }
+                } )
+            } );
+        } );
+    </script>
+</body>
+</html>
